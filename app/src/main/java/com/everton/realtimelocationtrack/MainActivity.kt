@@ -12,10 +12,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.everton.realtimelocationtrack.helper.LocationHelper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -25,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonOff : Button
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient; // Foreground usage
     private lateinit var locationCallback : LocationCallback; // Foreground usage
-
+    private lateinit var locationRequest : LocationRequest;
     private final val MY_PERMISSIONS_REQUEST_ACESS_FINE_LOCATION = 1;
 
     //    companion object {
@@ -78,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
     override fun onResume() {
         super.onResume()
