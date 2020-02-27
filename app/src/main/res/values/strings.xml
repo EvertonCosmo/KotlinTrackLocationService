@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">RealTimeLocationTrack</string>
+    <string name="app_name">BackgroundLocation</string>
+    <string name="location">LOCATION</string>
+    <string name="off_background">OFF BACKGROUND</string>
+    <string name="on_background">ON BACKGROUND</string>
+    <plurals name="number_locations">
+        <item quantity="zero"> No locations reported </item>
+        <item quantity="one">One location reported</item>
+        <item quantity="other">%d locations reported</item>
+    </plurals>
 </resources>

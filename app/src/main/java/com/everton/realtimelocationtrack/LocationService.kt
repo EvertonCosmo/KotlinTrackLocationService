@@ -26,6 +26,7 @@ class LocationService : Service () {
                Log.d("location:","Lat is:" + result.lastLocation.latitude + "," + "Lng is: " + result.lastLocation.latitude);
            }
        }
+
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
