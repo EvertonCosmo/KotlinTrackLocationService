@@ -11,29 +11,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.everton.realtimelocationtrack.helper.LocationHelper
+import com.everton.realtimelocationtrack.services.BackgroundLocationService
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var textView : TextView
-    private lateinit var buttonOn : Button
-    private lateinit var buttonOff : Button
+    private lateinit var OutputViewText : TextView
+    private lateinit var foregroundStartButton: Button
+
+    private lateinit var foregroundStopButton : Button
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient; // Foreground usage
     private lateinit var locationCallback : LocationCallback; // Foreground usage
     private lateinit var locationRequest : LocationRequest;
     private final val MY_PERMISSIONS_REQUEST_ACESS_FINE_LOCATION = 1;
 
-    //    companion object {
-//
-//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView = findViewById(R.id.textLat)
-        buttonOff = findViewById(R.id.btnOff)
-        buttonOn = findViewById(R.id.btnOn)
+
+        foregroundStartButton = findViewById(R.id.foreground_start_button)
+        foregroundStopButton = findViewById(R.id.foreground_stop_button)
+//        OutputViewText = findViewById(R.id.output_text_view)
         if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -57,42 +57,35 @@ class MainActivity : AppCompatActivity() {
 
 
             }
-        } else {
-//            startLocationService()
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-            locationCallback = object :LocationCallback() {
-                override fun onLocationResult(result: LocationResult) {
-                    super.onLocationResult(result)
-                    Log.d("location:","Lat in foreground:" + result.lastLocation.latitude + "," + "Lng in foreground: " + result.lastLocation.latitude);
-                    textView.text = " Results : { " + result.lastLocation.latitude + " ," +result.lastLocation.longitude + "}"
-                }
-            }
+        }
             Log.d("permission", "OK")
 
-            buttonOn.setOnClickListener{ view -> startLocationService()}
-            buttonOff.setOnClickListener{ view -> stopLocationService()}
-        }
+            foregroundStartButton.setOnClickListener{ view -> startLocationService()}
+            foregroundStopButton.setOnClickListener{ view -> stopLocationService()}
+
 
     }
 
-
+    private fun logResultsToScreen(output:String) {
+        val outputWithPreviousLogs = "$output\n${OutputViewText.text}"
+        OutputViewText.text = outputWithPreviousLogs
+    }
     override fun onResume() {
         super.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stopLocationService()
+//        stopLocationService()
     }
 
     private fun startLocationService (){
-        val intent: Intent  = Intent(this,BackgroundLocationService::class.java)
+        val intent: Intent  = Intent(this, BackgroundLocationService::class.java)
         ContextCompat.startForegroundService(this,intent)
         Toast.makeText(this,"Service  started",Toast.LENGTH_SHORT)
     }
     private fun stopLocationService(){
-        val intent: Intent  = Intent(this,BackgroundLocationService::class.java)
+        val intent: Intent  = Intent(this, BackgroundLocationService::class.java)
         stopService(intent)
         Toast.makeText(this,"Service  stopped",Toast.LENGTH_SHORT)
     }
