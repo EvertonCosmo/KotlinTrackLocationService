@@ -1,8 +1,14 @@
 <resources>
-    <string name="app_name">BackgroundLocation</string>
-    <string name="location">LOCATION</string>
-    <string name="off_background">OFF BACKGROUND</string>
-    <string name="on_background">ON BACKGROUND</string>
+    <string name="app_name">Location App Android</string>
+
+    <string name="location_unknown">Location Unknown</string>
+    <string name="location_updated">Location Updated: %1$s</string>
+    <string name="location_updates">location updates</string>
+    <string name="no_location_text">No current location</string>
+
+    <string name="stop_updates">Stop location updates</string>
+    <string name="start_updates">Start location updates</string>
+
     <plurals name="number_locations">
         <item quantity="zero"> No locations reported </item>
         <item quantity="one">One location reported</item>

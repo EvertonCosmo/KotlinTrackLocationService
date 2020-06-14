@@ -16,22 +16,15 @@ import java.util.*
 import kotlin.text.StringBuilder
 
 @Suppress("JAVA_CLASS_ON_COMPANION")
-class LocationHelper {
+class LocationHelper(private var mContext:Context, private  var locations: List<Location>) {
 
     private var KEY_LOCATIONS_RESULT = "location-update-results"
 //    private var PRIMAY_CHANNEL = "locationService"
     companion object{
          var PRIMAY_CHANNEL = "locationService"
     }
-    private lateinit var mContext: Context
+//    private lateinit var mContext: Context = context
     private lateinit var notificationManager: NotificationManager
-    private lateinit var locations: List<Location>
-
-    constructor(context: Context, locations: List<Location>) {
-        mContext = context;
-        this.locations = locations;
-
-    }
 
     private  fun getLocationResultString(): String {
         if (locations.isEmpty()) return "Location not received"
